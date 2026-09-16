@@ -10,11 +10,11 @@ variable "vpc_id" {
 }
 
 variable "private_subnet_ids" {
-  description = "Private subnet IDs"
+  description = "Existing spoke private subnet IDs"
   type        = list(string)
 }
 
 variable "private_route_table_ids" {
-  description = "Private route table IDs"
+  description = "Existing spoke private route table IDs"
   type        = list(string)
-}  
+}

@@ -1,13 +1,13 @@
 aws_region = "ap-south-1"
 
-vpc_id = "vpc-xxxxxxxxxxxxxxxxx"
+vpc_id = "YOUR-REAL-SPOKE-VPC-ID"
 
 private_subnet_ids = [
-  "subnet-xxxxxxxxxxxxxxxxx",
-  "subnet-yyyyyyyyyyyyyyyyy"
+  "YOUR-REAL-PRIVATE-SUBNET-ID-1",
+  "YOUR-REAL-PRIVATE-SUBNET-ID-2"
 ]
 
 private_route_table_ids = [
-  "rtb-xxxxxxxxxxxxxxxxx",
-  "rtb-yyyyyyyyyyyyyyyyy"
-]  
+  "YOUR-REAL-PRIVATE-ROUTE-TABLE-ID-1",
+  "YOUR-REAL-PRIVATE-ROUTE-TABLE-ID-2"
+] 
