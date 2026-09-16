@@ -71,4 +71,4 @@ jobs:
             --region ap-south-1 \
             --filters "Name=vpc-id,Values=$VPC_ID" \
             --query 'VpcEndpoints[*].[VpcEndpointId,ServiceName,State]' \
-            --output table 
+            --output table   
