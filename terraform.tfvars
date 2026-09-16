@@ -1,13 +1,13 @@
 aws_region = "ap-south-1"
 
-vpc_id = "vpc-0f123456789abcd12"
+vpc_id = "REAL-VPC-ID-FROM-GITHUB-OUTPUT"
 
 private_subnet_ids = [
-  "subnet-xxxxxxxxxxxxxxxxx",
-  "subnet-yyyyyyyyyyyyyyyyy"
+  "REAL-SUBNET-ID-1",
+  "REAL-SUBNET-ID-2"
 ]
 
 private_route_table_ids = [
-  "rtb-xxxxxxxxxxxxxxxxx",
-  "rtb-yyyyyyyyyyyyyyyyy"
+  "REAL-ROUTE-TABLE-ID-1",
+  "REAL-ROUTE-TABLE-ID-2"
 ]  
