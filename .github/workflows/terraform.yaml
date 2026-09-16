@@ -1,4 +1,4 @@
-name: Phase 4 - Destroy VPC Endpoints-spoke
+name: DESTROY - ALL Phase 4 VPC ENDPOINTS
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  terraform-destroy:
+  destroy:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,11 +31,15 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Format Check
-        run: terraform fmt 
-
-      - name: Terraform Validate
-        run: terraform validate
+      - name: Show Terraform Resources
+        run: terraform state list
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve  
+        run: terraform destroy -auto-approve
+
+      - name: Check Remaining VPC Endpoints
+        run: |
+          aws ec2 describe-vpc-endpoints \
+            --region ap-south-1 \
+            --query 'VpcEndpoints[*].[VpcEndpointId,VpcId,ServiceName,State]' \
+            --output table  
