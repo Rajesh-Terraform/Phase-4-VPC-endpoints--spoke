@@ -67,4 +67,4 @@ resource "aws_vpc_endpoint" "s3" {
   tags = {
     Name = "spoke-s3-endpoint"
   }
-}
+}  
