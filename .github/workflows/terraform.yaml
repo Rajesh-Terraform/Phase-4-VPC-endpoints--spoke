@@ -1,4 +1,4 @@
-name: DESTROY - ALL Phase 4 VPC ENDPOINTS
+name: DESTROY ALL VPC ENDPOINTS-spoke
 
 on:
   push:
@@ -6,13 +6,12 @@ on:
       - main
 
   workflow_dispatch:
-
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  destroy:
+  destroy-vpc-endpoints:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,21 +21,54 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume:  arn:aws:iam::434097521299:role/testingdummy 
+          role-to-assume:  arn:aws:iam::434097521299:role/testingdummy
           aws-region: ap-south-1
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
-
-      - name: Check Remaining VPC Endpoints
+      - name: Find VPC Endpoints
         run: |
+          echo "Finding all VPC endpoints in ap-south-1..."
+
           aws ec2 describe-vpc-endpoints \
             --region ap-south-1 \
             --query 'VpcEndpoints[*].[VpcEndpointId,VpcId,ServiceName,State]' \
-            --output table   
+            --output table
+
+      - name: Destroy ALL VPC Endpoints in Spoke VPC
+        run: |
+          VPC_ID="vpc-012c100251b60e49c"
+
+          echo "Target Spoke VPC: $VPC_ID"
+
+          ENDPOINT_IDS=$(aws ec2 describe-vpc-endpoints \
+            --region ap-south-1 \
+            --filters "Name=vpc-id,Values=$VPC_ID" \
+            --query 'VpcEndpoints[*].VpcEndpointId' \
+            --output text)
+
+          if [ -z "$ENDPOINT_IDS" ]; then
+            echo "No VPC endpoints found."
+            exit 0
+          fi
+
+          echo "Deleting:"
+          echo "$ENDPOINT_IDS"
+
+          aws ec2 delete-vpc-endpoints \
+            --region ap-south-1 \
+            --vpc-endpoint-ids $ENDPOINT_IDS
+
+      - name: Wait for deletion
+        run: |
+          sleep 20
+
+      - name: Verify VPC Endpoints
+        run: |
+          VPC_ID="vpc-012c100251b60e49c"
+
+          echo "Checking remaining endpoints..."
+
+          aws ec2 describe-vpc-endpoints \
+            --region ap-south-1 \
+            --filters "Name=vpc-id,Values=$VPC_ID" \
+            --query 'VpcEndpoints[*].[VpcEndpointId,ServiceName,State]' \
+            --output table 
