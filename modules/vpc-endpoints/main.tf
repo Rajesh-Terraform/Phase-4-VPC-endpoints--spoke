@@ -62,7 +62,9 @@ resource "aws_vpc_endpoint" "s3" {
   service_name      = "com.amazonaws.ap-south-1.s3"
   vpc_endpoint_type = "Gateway"
 
+  route_table_ids = var.private_route_table_ids
+
   tags = {
     Name = "spoke-s3-endpoint"
   }
-}
+}  

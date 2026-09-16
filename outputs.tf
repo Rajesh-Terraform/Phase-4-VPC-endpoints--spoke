@@ -11,4 +11,4 @@ output "s3_endpoint_id" {
 output "endpoint_security_group_id" {
   description = "Endpoint security group ID"
   value       = module.vpc_endpoints.endpoint_security_group_id
-}  
+}   
