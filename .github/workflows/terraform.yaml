@@ -31,9 +31,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Show Terraform Resources
-        run: terraform state list
-
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
 
@@ -42,4 +39,4 @@ jobs:
           aws ec2 describe-vpc-endpoints \
             --region ap-south-1 \
             --query 'VpcEndpoints[*].[VpcEndpointId,VpcId,ServiceName,State]' \
-            --output table  
+            --output table   
