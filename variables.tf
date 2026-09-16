@@ -4,17 +4,18 @@ variable "aws_region" {
   default     = "ap-south-1"
 }
 
-variable "vpc_id" {
-  description = "Existing spoke VPC ID"
+variable "spoke_vpc_cidr" {
+  description = "CIDR of the existing Spoke VPC"
   type        = string
+  default     = "10.1.0.0/16"
 }
 
 variable "private_subnet_ids" {
-  description = "Existing spoke private subnet IDs"
+  description = "Private subnet IDs of the existing Spoke VPC"
   type        = list(string)
 }
 
 variable "private_route_table_ids" {
-  description = "Existing spoke private route table IDs"
+  description = "Private route table IDs of the existing Spoke VPC"
   type        = list(string)
 }

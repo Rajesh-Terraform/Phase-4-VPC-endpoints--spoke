@@ -14,4 +14,4 @@ output "s3_endpoint_id" {
 output "endpoint_security_group_id" {
   description = "Security group ID for interface endpoints"
   value       = aws_security_group.endpoint.id
-}   
+}    

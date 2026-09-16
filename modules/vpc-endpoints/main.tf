@@ -14,7 +14,7 @@ locals {
 
 resource "aws_security_group" "endpoint" {
   name        = "spoke-vpc-endpoints-sg"
-  description = "Allow HTTPS from spoke VPC to VPC endpoints"
+  description = "Allow HTTPS from spoke VPC"
   vpc_id      = var.vpc_id
 
   ingress {

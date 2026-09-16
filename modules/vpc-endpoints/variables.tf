@@ -1,5 +1,5 @@
 variable "vpc_id" {
-  description = "Spoke VPC ID"
+  description = "Existing Spoke VPC ID"
   type        = string
 }
 
