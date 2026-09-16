@@ -11,4 +11,4 @@ variable "private_subnet_ids" {
 variable "private_route_table_ids" {
   description = "Private route table IDs"
   type        = list(string)
-}
+}  

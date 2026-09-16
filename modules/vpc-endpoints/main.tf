@@ -14,11 +14,11 @@ locals {
 
 resource "aws_security_group" "endpoint" {
   name        = "spoke-vpc-endpoints-sg"
-  description = "Allow HTTPS from spoke VPC"
+  description = "Allow HTTPS from Spoke VPC"
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "HTTPS from spoke VPC"
+    description = "HTTPS from Spoke VPC"
     protocol    = "tcp"
     from_port   = 443
     to_port     = 443
@@ -67,4 +67,4 @@ resource "aws_vpc_endpoint" "s3" {
   tags = {
     Name = "spoke-s3-endpoint"
   }
-}  
+}
