@@ -1,4 +1,4 @@
-name: Phase 4 - VPC Endpoints-spoke
+name: Phase 4 - Destroy VPC Endpoints-spoke
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  terraform:
+  terraform-destroy:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: arn:aws:iam::434097521299:role/testingdummy
+          role-to-assume:  arn:aws:iam::434097521299:role/testingdummy 
           aws-region: ap-south-1
 
       - name: Setup Terraform
@@ -31,14 +31,11 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Format
+      - name: Terraform Format Check
         run: terraform fmt 
 
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan    
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve  
